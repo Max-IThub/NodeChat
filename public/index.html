@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Socket.IO chat</title>
+  <title>Текущий чат</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <style>
     #messages { height: calc(100vh - 70px); border: 1px solid #ccc; overflow: auto; margin-bottom: 10px; }
@@ -17,10 +17,10 @@
   <div class="container">
     <div id="messages"></div>
     <div class="input-group">
-      <input id="message-box" type="text" class="form-control" placeholder="Type your message here">
+      <input id="message-box" type="text" class="form-control" placeholder="Напишите сообщение">
       <div class="input-group-append">
-        <button id="send-all-button" class="btn btn-primary">Send to All</button>
-        <button id="send-private-button" class="btn btn-success">Send Private</button>
+        <button id="send-all-button" class="btn btn-primary">Отправить всем</button>
+        <button id="send-private-button" class="btn btn-success">Личное сообщение</button>
       </div>
     </div>
     <div id="user-list"></div>
@@ -37,7 +37,7 @@
         </div>
         <div class="modal-body">
           <select id="private-recipient" class="form-control"></select>
-          <input id="private-message" type="text" class="form-control" placeholder="Type your private message here">
+          <input id="private-message" type="text" class="form-control" placeholder="Напишите личное сообщение">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" onclick="sendPrivateMessage()">Send</button>
@@ -51,8 +51,8 @@
   <script>
     $(function () {
       const socket = io();
-      const username = prompt("Please enter your name:");
-      const userColor = prompt("Please enter your preferred color:");
+      const username = prompt("Здравствуйте, как вас зовут?");
+      const userColor = prompt("На английском напишите свой любимый цвет.");
 
       socket.emit('new user', { name: username, color: userColor });
 
@@ -90,9 +90,9 @@
 
       socket.on('user joined', function(users, isFirst){
         if (isFirst) {
-          $('#messages').append($('<li class="system-message">').text(`Добро пожаловать. Вы первый в чате.`));
+          $('#messages').append($('<li class="system-message">').text(`ВЫ ПЕРВЫЙ В ЧАТЕ`));
         } else {
-          $('#messages').append($('<li class="system-message">').text(`Добро пожаловать. В чате уже присутствуют: ${users.join(', ')}`));
+          $('#messages').append($('<li class="system-message">').text(`В ЧАТЕ ПРИСУТСТВУЮТ: ${users.join(', ')}`));
         }
         updateUsersList(users);
       });
